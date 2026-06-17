@@ -1,0 +1,100 @@
+<div style="width:100%;height:100%;position:relative;overflow:hidden;">
+
+    <!-- Free Edition Badge -->
+    <div style="position:absolute;top:4px;right:4px;z-index:10;
+                background:rgba(0,120,212,0.18);border:1px solid rgba(0,120,212,0.45);
+                border-radius:4px;padding:2px 8px;font-size:9px;color:#60a5fa;
+                font-family:'Segoe UI',sans-serif;letter-spacing:0.5px;pointer-events:none;">
+        FREE EDITION · <a href="https://piforge.pages.dev" target="_blank"
+            style="color:#60a5fa;text-decoration:none;">Upgrade →</a>
+    </div>
+
+    <!-- Empty state hint -->
+    <div ng-if="!hasData"
+        style="position:absolute;top:0;left:0;right:0;bottom:0;z-index:5;
+               display:flex;flex-direction:column;align-items:center;justify-content:center;
+               font-family:'Segoe UI',sans-serif;text-align:center;pointer-events:none;">
+        <div style="font-size:30px;margin-bottom:10px;opacity:0.5;">📊</div>
+        <div style="color:#94a3b8;font-size:13px;font-weight:600;">Drop PI tags onto this symbol</div>
+        <div style="color:#64748b;font-size:11px;margin-top:6px;line-height:1.5;">
+            Up to 3 trend lines&nbsp;&nbsp;·&nbsp;&nbsp;1 bar series<br>
+            Assign tags to series in the Format panel
+        </div>
+    </div>
+
+    <svg id="chart-svg"
+        ng-attr-viewBox="{{viewBox}}" preserveAspectRatio="none"
+        style="width:100%;height:100%;"
+        ng-style="{'background': config.BackgroundColor}">
+
+        <defs>
+            <clipPath id="chart-clip">
+                <rect ng-attr-x="{{clipRect.x}}" ng-attr-y="{{clipRect.y}}"
+                      ng-attr-width="{{clipRect.width}}" ng-attr-height="{{clipRect.height}}" />
+            </clipPath>
+        </defs>
+
+        <!-- Grid Lines -->
+        <g ng-if="config.ShowGrid">
+            <line ng-repeat="tick in yTicksLeft"
+                ng-attr-x1="{{tick.x1}}" ng-attr-y1="{{tick.y}}"
+                ng-attr-x2="{{tick.x2}}" ng-attr-y2="{{tick.y}}"
+                ng-attr-stroke="{{config.GridColor}}" stroke-width="0.5" />
+            <line ng-repeat="tick in xTicks"
+                ng-attr-x1="{{tick.x}}" ng-attr-y1="{{tick.y1}}"
+                ng-attr-x2="{{tick.x}}" ng-attr-y2="{{tick.y2}}"
+                ng-attr-stroke="{{config.GridColor}}" stroke-width="0.5" />
+        </g>
+
+        <!-- Bar Series -->
+        <g clip-path="url(#chart-clip)">
+            <rect ng-repeat="bar in barRects"
+                ng-attr-x="{{bar.x}}" ng-attr-y="{{bar.y}}"
+                ng-attr-width="{{bar.width}}" ng-attr-height="{{bar.height}}"
+                ng-attr-fill="{{config.BarColor}}"
+                ng-attr-opacity="{{config.BarOpacity}}" />
+        </g>
+
+        <!-- Trend Lines (up to 3) -->
+        <g clip-path="url(#chart-clip)">
+            <path ng-repeat="trend in trendPaths"
+                ng-attr-d="{{trend.d}}"
+                fill="none"
+                ng-attr-stroke="{{trend.stroke}}"
+                stroke-width="2"
+                stroke-linejoin="round"
+                stroke-linecap="round" />
+        </g>
+
+        <!-- Left Y-Axis Labels -->
+        <g ng-if="config.ShowLeftAxis">
+            <text ng-repeat="tick in yTicksLeft"
+                ng-attr-x="{{tick.x1 - 6}}" ng-attr-y="{{tick.y}}"
+                text-anchor="end" dominant-baseline="middle"
+                ng-attr-fill="{{config.TextColor}}"
+                style="font-size:8px;opacity:0.8;">{{tick.label}}</text>
+        </g>
+
+        <!-- X-Axis Labels -->
+        <g>
+            <text ng-repeat="tick in xTicks"
+                ng-attr-x="{{tick.x}}" ng-attr-y="{{tick.y2 + 18}}"
+                text-anchor="middle"
+                ng-attr-fill="{{config.TextColor}}"
+                style="font-size:8px;opacity:0.8;">{{tick.label}}</text>
+        </g>
+
+        <!-- Legend -->
+        <g ng-if="config.ShowLegend" transform="translate(85, 20)">
+            <g ng-repeat="item in legendItems" ng-attr-transform="translate({{$index * 110}}, 0)">
+                <line ng-if="item.type === 'line'" x1="0" y1="0" x2="18" y2="0"
+                    ng-attr-stroke="{{item.color}}" stroke-width="2" />
+                <rect ng-if="item.type === 'rect'" x="0" y="-5" width="18" height="10"
+                    ng-attr-fill="{{item.color}}" />
+                <text x="22" y="0" dominant-baseline="middle"
+                    ng-attr-fill="{{config.TextColor}}" font-size="11">{{item.label}}</text>
+            </g>
+        </g>
+
+    </svg>
+</div>

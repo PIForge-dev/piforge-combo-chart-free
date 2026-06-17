@@ -1,0 +1,276 @@
+<style>
+.dc-pane * { box-sizing: border-box; }
+.dc-pane {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 12px;
+    color: #333;
+    background: #f4f4f4;
+    height: 100%;
+    overflow-y: auto;
+}
+.dc-hd {
+    background: #0078d4;
+    color: #fff;
+    padding: 10px 12px 8px;
+    font-size: 13px;
+    font-weight: 700;
+}
+.dc-hd small {
+    display: block;
+    font-size: 10px;
+    font-weight: 400;
+    opacity: 0.75;
+    margin-top: 2px;
+}
+.dc-sec {
+    background: #fff;
+    margin: 6px;
+    border-radius: 4px;
+    border: 1px solid #e0e0e0;
+    overflow: hidden;
+}
+.dc-sh {
+    background: #f8f8f8;
+    border-left: 3px solid #0078d4;
+    padding: 7px 10px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #444;
+}
+.dc-row {
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    border-bottom: 1px solid #f0f0f0;
+    min-height: 30px;
+}
+.dc-row:last-child { border-bottom: none; }
+.dc-lbl { flex: 1; font-size: 11px; color: #555; }
+.dc-pane input[type="text"],
+.dc-pane input[type="number"] {
+    background: #fff;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 3px 6px;
+    font-size: 11px;
+    width: 120px;
+}
+.dc-pane input[type="color"] {
+    width: 32px; height: 24px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 1px;
+    cursor: pointer;
+}
+.dc-pane input[type="checkbox"] {
+    width: 14px; height: 14px;
+    margin: 0 8px 0 0;
+    cursor: pointer;
+    accent-color: #0078d4;
+}
+.dc-pane input[type="range"] { flex: 1; margin: 0 6px; }
+.dc-pane select.dc-ctrl {
+    background: #fff;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 3px 6px;
+    font-size: 11px;
+    width: 140px;
+}
+.dc-series {
+    margin: 4px 10px;
+    padding: 6px 8px;
+    background: #fafafa;
+    border: 1px solid #e8e8e8;
+    border-radius: 3px;
+}
+.dc-series:last-child { margin-bottom: 8px; }
+.dc-series-hd {
+    display: flex;
+    align-items: center;
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    flex-wrap: wrap;
+    gap: 2px;
+}
+.dc-series-bd { padding-left: 18px; }
+.dc-tag {
+    margin-left: 6px;
+    padding: 1px 6px;
+    background: #e3f2fd;
+    color: #1565c0;
+    border: 1px solid #90caf9;
+    border-radius: 3px;
+    font-size: 10px;
+}
+.dc-tag-e {
+    margin-left: 6px;
+    padding: 1px 6px;
+    background: #fff3e0;
+    color: #e65100;
+    border: 1px solid #ffb74d;
+    border-radius: 3px;
+    font-size: 10px;
+    font-style: italic;
+}
+.dc-upgrade {
+    margin: 8px 6px;
+    padding: 10px;
+    background: linear-gradient(135deg, #0b1e2d, #162635);
+    border-radius: 6px;
+    text-align: center;
+    border: 1px solid rgba(96,165,250,0.25);
+}
+.dc-upgrade-title {
+    color: #60a5fa;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+}
+.dc-upgrade-list {
+    color: #94a3b8;
+    font-size: 10px;
+    line-height: 1.6;
+    margin-bottom: 8px;
+    text-align: left;
+    padding-left: 8px;
+}
+.dc-upgrade-btn {
+    display: block;
+    background: #0078d4;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 0;
+    width: 100%;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.15s;
+}
+.dc-upgrade-btn:hover { background: #005fa3; }
+</style>
+
+<div class="dc-pane">
+
+    <div class="dc-hd">
+        Combo Chart
+        <small>Free Edition · 3 Trends + 1 Bar</small>
+    </div>
+
+    <!-- Trend Lines -->
+    <div class="dc-sec">
+        <div class="dc-sh">Trend Lines (up to 3)</div>
+        <div ng-repeat="trend in config.TrendStreams track by $index" class="dc-series">
+            <div class="dc-series-hd">
+                <input type="checkbox" ng-model="trend.enabled" ng-change="saveConfig()" />
+                <span>Trend {{$index + 1}}</span>
+                <span ng-if="trend.enabled && trend.stream !== ''" class="dc-tag">{{config.Tags[trend.stream]}}</span>
+                <span ng-if="trend.enabled && trend.stream === ''" class="dc-tag-e">(No Tag)</span>
+            </div>
+            <div ng-if="trend.enabled" class="dc-series-bd">
+                <div class="dc-row">
+                    <span class="dc-lbl">Stream</span>
+                    <select class="dc-ctrl" ng-model="trend.stream" ng-change="saveConfig()">
+                        <option value="">Select...</option>
+                        <option ng-repeat="tag in config.Tags track by $index" ng-value="$index.toString()">{{tag}}</option>
+                    </select>
+                </div>
+                <div class="dc-row">
+                    <span class="dc-lbl">Label</span>
+                    <input type="text" ng-model="trend.label" ng-change="saveConfig()" />
+                </div>
+                <div class="dc-row">
+                    <span class="dc-lbl">Color</span>
+                    <input type="color" ng-model="trend.color" ng-change="saveConfig()" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bar Series -->
+    <div class="dc-sec">
+        <div class="dc-sh">Bar Series</div>
+        <div class="dc-row">
+            <input type="checkbox" ng-model="config.BarEnabled" ng-change="saveConfig()" />
+            <span class="dc-lbl">Enable Bar</span>
+        </div>
+        <div ng-if="config.BarEnabled">
+            <div class="dc-row">
+                <span class="dc-lbl">Stream</span>
+                <select class="dc-ctrl" ng-model="config.BarStream" ng-change="saveConfig()">
+                    <option value="">Select...</option>
+                    <option ng-repeat="tag in config.Tags track by $index" ng-value="$index.toString()">{{tag}}</option>
+                </select>
+            </div>
+            <div class="dc-row">
+                <span class="dc-lbl">Label</span>
+                <input type="text" ng-model="config.BarLabel" ng-change="saveConfig()" />
+            </div>
+            <div class="dc-row">
+                <span class="dc-lbl">Color</span>
+                <input type="color" ng-model="config.BarColor" ng-change="saveConfig()" />
+            </div>
+            <div class="dc-row">
+                <span class="dc-lbl">Opacity</span>
+                <input type="range" ng-model="config.BarOpacity" ng-change="saveConfig()" min="0.1" max="1" step="0.1" />
+                <span style="font-size:11px;min-width:24px;text-align:right;">{{config.BarOpacity}}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Display -->
+    <div class="dc-sec">
+        <div class="dc-sh">Display</div>
+        <div class="dc-row">
+            <input type="checkbox" ng-model="config.ShowLegend" ng-change="saveConfig()" />
+            <span class="dc-lbl">Show Legend</span>
+        </div>
+        <div class="dc-row">
+            <input type="checkbox" ng-model="config.ShowGrid" ng-change="saveConfig()" />
+            <span class="dc-lbl">Show Grid</span>
+        </div>
+        <div class="dc-row">
+            <input type="checkbox" ng-model="config.ShowLeftAxis" ng-change="saveConfig()" />
+            <span class="dc-lbl">Show Y-Axis</span>
+        </div>
+    </div>
+
+    <!-- Colors -->
+    <div class="dc-sec">
+        <div class="dc-sh">Colors</div>
+        <div class="dc-row">
+            <span class="dc-lbl">Text</span>
+            <input type="color" ng-model="config.TextColor" ng-change="saveConfig()" />
+        </div>
+        <div class="dc-row">
+            <span class="dc-lbl">Background</span>
+            <input type="color" ng-model="config.BackgroundColor" ng-change="saveConfig()" />
+        </div>
+    </div>
+
+    <!-- Upgrade CTA -->
+    <div class="dc-upgrade">
+        <div class="dc-upgrade-title">⚡ Upgrade to Pro</div>
+        <div class="dc-upgrade-list">
+            ✓ Up to 5 Bar Series<br>
+            ✓ Dual Y-Axis<br>
+            ✓ Custom Time Range (Duration / Custom)<br>
+            ✓ Zoom &amp; Pan<br>
+            ✓ Interactive Tooltips<br>
+            ✓ Data Grid Table<br>
+            ✓ CSV Export
+        </div>
+        <a class="dc-upgrade-btn" href="https://piforge.pages.dev" target="_blank">
+            Get Pro at piforge.pages.dev
+        </a>
+    </div>
+
+</div>
