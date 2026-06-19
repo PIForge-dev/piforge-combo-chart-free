@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+    <!-- Background (Optional, prevents transparency issues) -->
+    <rect width="50" height="50" fill="#222" rx="4"/>
+
+    <!-- Bars (Blue) -->
+    <rect x="6" y="25" width="8" height="20" fill="#448aff" />
+    <rect x="17" y="15" width="8" height="30" fill="#448aff" />
+    <rect x="28" y="30" width="8" height="15" fill="#448aff" />
+    <rect x="39" y="10" width="8" height="35" fill="#448aff" />
+
+    <!-- Trend Line (Red Overlay) -->
+    <polyline points="10,25 21,15 32,30 43,10" 
+              fill="none" stroke="#ff5252" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- Data Points -->
+    <circle cx="10" cy="25" r="2" fill="#fff" stroke="#ff5252" stroke-width="1"/>
+    <circle cx="21" cy="15" r="2" fill="#fff" stroke="#ff5252" stroke-width="1"/>
+    <circle cx="32" cy="30" r="2" fill="#fff" stroke="#ff5252" stroke-width="1"/>
+    <circle cx="43" cy="10" r="2" fill="#fff" stroke="#ff5252" stroke-width="1"/>
+</svg>
