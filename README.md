@@ -20,7 +20,7 @@ Displays **two PI tags** side-by-side on the same time axis:
 ### Demo
 
 <p align="center">
-  <img src="https://piforge.pages.dev/assets/piforge_combo-chart/gif-bc-demo.jpg" alt="Combo Chart Demo" width="100%" style="border-radius: 16px; box-shadow: 0 8px 30px rgba(0,0,0,0.15);" />
+  <img src="gif-bc-demo.gif" alt="Combo Chart Demo" width="100%" style="border-radius: 16px; box-shadow: 0 8px 30px rgba(0,0,0,0.15);" />
 </p>
 
 > 💡 **Tip**: View the live looping video demo of this symbol at [piforge.pages.dev](https://piforge.pages.dev/product.html?id=4)!
