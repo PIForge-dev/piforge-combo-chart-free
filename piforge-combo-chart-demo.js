@@ -1,7 +1,7 @@
 /**
  * PIForge Combo Chart - Free Edition
  * Up to 3 Trend Lines + 1 Bar Series · Single Y-Axis · Display Time Mode
- * Full version: https://piforge.pages.dev
+ * Full version: https://piforge.app
  */
 
 (function (PV) {

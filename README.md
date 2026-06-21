@@ -2,7 +2,7 @@
 
 > A free AVEVA PI Vision custom symbol that overlays a **trend line** and **bar series** on a single chart.
 
-[![PIForge](https://img.shields.io/badge/PIForge-piforge.pages.dev-0078d4?style=flat-square)](https://piforge.pages.dev)
+[![PIForge](https://img.shields.io/badge/PIForge-piforge.app-0078d4?style=flat-square)](https://piforge.app)
 [![License](https://img.shields.io/badge/License-Free-27ae60?style=flat-square)]()
 [![PI Vision](https://img.shields.io/badge/PI%20Vision-2019%2B-0078d4?style=flat-square)]()
 
@@ -23,7 +23,7 @@ Displays **two PI tags** side-by-side on the same time axis:
   <img src="gif-bc-demo.gif" alt="Combo Chart Demo" width="100%" style="border-radius: 16px; box-shadow: 0 8px 30px rgba(0,0,0,0.15);" />
 </p>
 
-> 💡 **Tip**: View the live looping video demo of this symbol at [piforge.pages.dev](https://piforge.pages.dev/product.html?id=4)!
+> 💡 **Tip**: View the live looping video demo of this symbol at [piforge.app](https://piforge.app/product.html?id=4)!
 
 ---
 
@@ -55,7 +55,7 @@ Displays **two PI tags** side-by-side on the same time axis:
 
 ## Free vs Pro
 
-| Feature | Free | [Pro](https://piforge.pages.dev) |
+| Feature | Free | [Pro](https://piforge.app) |
 |---------|------|------|
 | Trend lines | Up to 3 | Up to 3 |
 | Bar series | 1 | Up to 5 |
@@ -67,7 +67,7 @@ Displays **two PI tags** side-by-side on the same time axis:
 | CSV export | ✗ | ✓ |
 | Support | Community | 30-day email support |
 
-👉 **[Get Pro at piforge.pages.dev](https://piforge.pages.dev)**
+👉 **[Get Pro at piforge.app](https://piforge.app)**
 
 ---
 
@@ -82,4 +82,4 @@ Displays **two PI tags** side-by-side on the same time axis:
 ## License
 
 Free to use in any PI Vision deployment. Redistribution without modification is permitted.  
-Commercial support and advanced features available at [piforge.pages.dev](https://piforge.pages.dev).
+Commercial support and advanced features available at [piforge.app](https://piforge.app).
